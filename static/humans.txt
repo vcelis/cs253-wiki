@@ -1,0 +1,7 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+/* TEAM */
+  Developer: Vincent Celis
+  Site: https://github.com/vcelis/
+  Location: Belgium

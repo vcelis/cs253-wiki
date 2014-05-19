@@ -1,0 +1,68 @@
+# TODO: Change application to your unique identifier
+application: gae-boilerplate
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+default_expiration: '30d'
+
+handlers:
+- url: /apple-touch-icon\.png
+  mime_type: image/png
+  static_files: static/img/apple-touch-icon.png
+  upload: static/img/apple-touch-icon.png
+
+- url: /favicon\.ico
+  mime_type: image/png
+  static_files: static/img/favicon.ico
+  upload: static/img/favicon\.ico
+  expiration: 7d
+
+- url: /(robots\.txt|humans\.txt|crossdomain\.xml)
+  static_files: static/\1
+  upload: static/(robots\.txt|humans\.txt|crossdomain\.xml)
+
+- url: /img/(.*\.(gif|png|jpg))
+  static_files: static/img/\1
+  upload: static/img/(.*\.(gif|png|jpg))
+
+- url: /css/(.*\.css)
+  mime_type: text/css
+  static_files: static/css/\1
+  upload: static/css/(.*\.css)
+
+- url: /js/(.*\.js)
+  mime_type: text/javascript
+  static_files: static/js/\1
+  upload: static/js/(.*\.js)
+
+- url: /fonts/(.*\.(eot|svg|ttf|woff|otf))
+  static_files: static/fonts/\1
+  upload: static/fonts/(.*\.(eot|svg|ttf|woff|otf))
+
+- url: /.*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: latest
+
+- name: jinja2
+  version: latest
+
+builtins:
+- deferred: Off
+- remote_api: Off
+- appstats: Off
+
+skip_files:
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?\.DS_Store
+- ^node_modules/.*
+- ^resources/.*
+- ^\.git/.*
