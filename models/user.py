@@ -27,30 +27,44 @@ import utils
 from google.appengine.ext import ndb
 
 class User(ndb.Model):
-  """ Some text here """
+  """Models the User entity for the datastore
+
+  Models the User entity for storage in the datastore. It has a few @classmethod
+  's to handle user registration and authentication.
+
+  Attributes:
+    name: A string containing the username
+    pw: A string containing the hashed pw
+    email: A string containing the email address
+  """
   name = ndb.StringProperty(required=True)
   pw = ndb.StringProperty(required=True)
   email = ndb.StringProperty()
 
   @staticmethod
   def getKey(group='default'):
+    """Returns the key used for the model"""
     return ndb.Key('users', group)
 
   @classmethod
   def getId(cls, uid):
+    """"Returns the entity instance for a given uid"""
     return User.get_by_id(long(uid), parent=User.getKey())
 
   @classmethod
   def getName(cls, name):
+    """Returns the entity instance for a given username if exists"""
     u = User.query().filter(User.name == name).fetch(1)
     return u[0] if u else None
 
   @classmethod
   def register(cls, name, pw, email=None):
+    """Returns a new entity instance for the given attributes"""
     pw = utils.genPwHash(name, pw)
     return cls(parent=User.getKey(), name=name, pw=pw, email=email)
 
   @classmethod
   def login(cls, name, pw):
+    """Returns the entity instance if the provided username and password match"""
     u = User.getName(name)
     return u if u and u.pw == utils.genPwHash(name, pw, u.pw.split('|')[0]) else None

@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>utils module &mdash; .  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title=".  documentation" href="index.html" />
+    <link rel="prev" title="settings module" href="settings.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="settings.html" title="settings module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">.  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-utils">
+<span id="utils-module"></span><h1>utils module<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="utils.checkCookie">
+<tt class="descclassname">utils.</tt><tt class="descname">checkCookie</tt><big>(</big><em>raw</em><big>)</big><a class="reference internal" href="_modules/utils.html#checkCookie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.checkCookie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks a given raw cookie if it is a valid uid cookie</p>
+<p>Checks the raw input if it is compliant with our uid cookie layout by
+generating the expected cookie using the uid in the raw input and comparing
+this to the raw input.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>raw: The raw cookie to check</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>boolean: None or False when the cookie check fails</dt>
+<dd><p class="first last">Integer representing the uid if the cookie checks out</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.checkPage">
+<tt class="descclassname">utils.</tt><tt class="descname">checkPage</tt><big>(</big><em>page</em><big>)</big><a class="reference internal" href="_modules/utils.html#checkPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.checkPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies a given raw page (path) to a useable page name</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.genCookie">
+<tt class="descclassname">utils.</tt><tt class="descname">genCookie</tt><big>(</big><em>uid</em><big>)</big><a class="reference internal" href="_modules/utils.html#genCookie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.genCookie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a cookie for a given uid</p>
+<p>Generates a cookie for the given uid containing the uid and a hashed 
+representation of the uid seperated by a pipe.</p>
+<p>The hash uses the string representation of the uid and a common salt specified
+in the settings module.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>uid: the uid to generate a cookie for</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>String: A string of the form UID|HASH</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.genPwHash">
+<tt class="descclassname">utils.</tt><tt class="descname">genPwHash</tt><big>(</big><em>name</em>, <em>pw</em>, <em>salt=None</em><big>)</big><a class="reference internal" href="_modules/utils.html#genPwHash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.genPwHash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the password hash to store in the datastore</p>
+<p>Generates a password hash to store in the database for the given username
+and password. An optional salt is provided to confirm the hash stored in the
+datastore.</p>
+<p>The sha256 hash uses the a concatenation of the username, password and salt.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>name: Username for the hash
+pw:   Password for the hash
+salt: OPTIONAL, salt for the hash</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li>String: A string of the form SALT|HASH</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.genSalt">
+<tt class="descclassname">utils.</tt><tt class="descname">genSalt</tt><big>(</big><em>length=5</em><big>)</big><a class="reference internal" href="_modules/utils.html#genSalt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.genSalt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string containing &lt;length&gt; random letters</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.validateEmail">
+<tt class="descclassname">utils.</tt><tt class="descname">validateEmail</tt><big>(</big><em>email</em><big>)</big><a class="reference internal" href="_modules/utils.html#validateEmail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.validateEmail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the email is empty OR matched the regex</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.validateLogin">
+<tt class="descclassname">utils.</tt><tt class="descname">validateLogin</tt><big>(</big><em>**raw</em><big>)</big><a class="reference internal" href="_modules/utils.html#validateLogin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.validateLogin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the login form input</p>
+<p>Validates the input from the login form using the regex defined in settings</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id1"><span class="problematic" id="id2">**</span></a>raw: Collects all the named arguments</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>A tuple containing:</dt>
+<dd><ul class="first last simple">
+<li>Boolean: Whether there was an error or not</li>
+<li>dict(): Containing the original params and the generated error params</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.validatePassword">
+<tt class="descclassname">utils.</tt><tt class="descname">validatePassword</tt><big>(</big><em>password</em><big>)</big><a class="reference internal" href="_modules/utils.html#validatePassword"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.validatePassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the password is not empty AND matched the regex</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.validateSignup">
+<tt class="descclassname">utils.</tt><tt class="descname">validateSignup</tt><big>(</big><em>**raw</em><big>)</big><a class="reference internal" href="_modules/utils.html#validateSignup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.validateSignup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the signup form input</p>
+<p>Validates the input from the signup form using the regex defined in settings</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id3"><span class="problematic" id="id4">**</span></a>raw: Collects all the named arguments</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>A tuple containing:</dt>
+<dd><ul class="first last simple">
+<li>Boolean: Whether there was an error or not</li>
+<li>dict(): Containing the original params and the generated error params</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.validateUsername">
+<tt class="descclassname">utils.</tt><tt class="descname">validateUsername</tt><big>(</big><em>username</em><big>)</big><a class="reference internal" href="_modules/utils.html#validateUsername"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#utils.validateUsername" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the username is not empty AND matched the regex</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="settings.html"
+                        title="previous chapter">settings module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/utils.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="settings.html" title="settings module"
+             >previous</a> |</li>
+        <li><a href="index.html">.  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Vincent Celis.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

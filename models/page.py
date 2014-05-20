@@ -25,6 +25,18 @@ import logging
 from google.appengine.ext import ndb
 
 class Page(ndb.Model):
+  """Models the Page entity for the datastore
+
+  Models the Page entity for storage in the datastore. It has one @classmethod
+  to retreive a entity by name.
+
+  Attributes:
+    name: A string containing the name of the page
+    content: A text property containing the content of the page
+    created: A Datetime object containing the datetime of creation
+    version: An Integer containing the version number of the page
+    author: A string containing the version authors username
+  """
   name = ndb.StringProperty(required=True)
   content = ndb.TextProperty(required=True)
   created = ndb.DateTimeProperty(auto_now_add=True)
@@ -33,9 +45,11 @@ class Page(ndb.Model):
 
   @staticmethod
   def getKey(group='default'):
+    """Returns the key used for the model"""
     return ndb.Key('pages', group)
 
   @classmethod
   def getName(cls, name):
+    """Returns the entity instance for a given page name if exists"""
     p = Page.query().filter(Page.name == name).fetch(1)
     return p[0] if p else None
