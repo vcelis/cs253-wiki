@@ -46,7 +46,7 @@ def validateEmail(email):
 def validateLogin(**raw):
   """Validates the login form input
 
-  Validates the input from the login form using the regex defined in settings.py
+  Validates the input from the login form using the regex defined in settings
   
   Args:
     **raw: Collects all the named arguments
@@ -56,44 +56,110 @@ def validateLogin(**raw):
       - Boolean: Whether there was an error or not
       - dict(): Containing the original params and the generated error params
   """
-  error, params = False, {'username': raw['username'], 'password': raw['password']}
+  error = False
+  params = { 'username': raw['username'], 'password': raw['password'] }
+  
   if not utils.validateUsername(raw['username']):
     params['error_username'] = settings.RE_USERNAME_FAIL
     error = True
+
   if not raw['password']:
     params['error_password'] = settings.RE_PASSWORD_EMPTY
     error = True
+
   return (error, params)
 
 def validateSignup(**raw):
-  error, params = False, {'username': raw['username'], 'email': raw['email']}
+  """Validates the signup form input
+
+  Validates the input from the signup form using the regex defined in settings
+
+  Args:
+    **raw: Collects all the named arguments
+
+  Returns:
+    A tuple containing:
+      - Boolean: Whether there was an error or not
+      - dict(): Containing the original params and the generated error params
+  """
+  error = False
+  params = { 'username': raw['username'], 'email': raw['email'] }
+  
   if not utils.validateUsername(raw['username']):
     params['error_username'] = settings.RE_USERNAME_FAIL
     error = True
+  
   if not utils.validatePassword(raw['password']):
     params['error_password'] = settings.RE_PASSWORD_FAIL
     error = True
   elif raw['password'] != raw['verify']:
     params['error_verify'] = RE_PASSWORD_MATCH
     error = True
+  
   if not utils.validateEmail(raw['email']):
     params['error_email'] =  settings.RE_EMAIL_FAIL
     error = True
+  
   return (error, params)
 
 def genCookie(uid):
+  """Generates a cookie for a given uid
+
+  Generates a cookie for the given uid containing the uid and a hashed 
+  representation of the uid seperated by a pipe.
+
+  The hash uses the string representation of the uid and a common salt specified
+  in the settings module. 
+
+  Args:
+    uid: the uid to generate a cookie for
+
+  Returns:
+    - String: A string of the form UID|HASH
+  """
   return '%s|%s' % (uid, hmac.new(settings.COOKIE_SALT, str(uid)).hexdigest())
 
 def checkCookie(raw):
+  """Checks a given raw cookie if it is a valid uid cookie
+
+  Checks the raw input if it is compliant with our uid cookie layout by
+  generating the expected cookie using the uid in the raw input and comparing
+  this to the raw input.
+
+  Args:
+    raw: The raw cookie to check
+
+  Returns:
+    - boolean: None or False when the cookie check fails
+               Integer representing the uid if the cookie checks out
+  """
   uid = raw.split('|')[0]
   return uid if raw == genCookie(uid) else None
 
 def genSalt(length=5):
+  """Returns a string containing <length> random letters"""
   return ''.join(random.choice(string.letters) for x in xrange(length))
 
 def genPwHash(name, pw, salt=None):
+  """Generates the password hash to store in the datastore
+
+  Generates a password hash to store in the database for the given username
+  and password. An optional salt is provided to confirm the hash stored in the
+  datastore.
+
+  The sha256 hash uses the a concatenation of the username, password and salt.
+
+  Args:
+    name: Username for the hash
+    pw:   Password for the hash
+    salt: OPTIONAL, salt for the hash
+
+  Returns:
+    - String: A string of the form SALT|HASH
+  """
   salt = salt if salt else genSalt()
   return '%s|%s' % (salt, hashlib.sha256(name+pw+salt).hexdigest())
 
 def checkPage(page):
+  """Modifies a given raw page (path) to a useable page name"""
   return 'home' if str(page) in settings.RESERVED_PAGES else page[1:]
