@@ -75,6 +75,20 @@ class EditPage(BaseHandler):
   Inherits common functionality from BaseHandler.
   """
   def get(self, name):
+    """Handles the get requests for edit page of the wiki pages
+
+    The user will get redirected to the SignupPage if authentication fails.
+
+    If a version is specified in the url it retreives the corresponding version
+    of the requested page. If the version doesn't exists, it redirects to the
+    requested edit page without a version specified.
+
+    If no version is specified the latest version of the page will be retreived
+    to be displayed.
+
+    If there is no version of the page in the datastore, the requested name will
+    be transformed and used for Page.name.
+    """
     self.restrictedArea()
     name = utils.checkPage(name)
 
@@ -100,6 +114,16 @@ class EditPage(BaseHandler):
       self.render('edit.html', **params)
 
   def post(self, name):
+    """Handles the post requests for edit page of the wiki pages
+
+    The user will get redirected to the SignupPage if authentication fails.
+
+    The version will be computed by counting the total number of entities for
+    the given page and adding 1.
+
+    The entity will be stored and the user gets redirected to the new version of
+    the page.
+    """
     self.restrictedArea()
     name = utils.checkPage(name)
 

@@ -32,8 +32,15 @@ from models import User
 from google.appengine.api import memcache
 from webapp2 import uri_for
 
-
 class BaseHandler(webapp2.RequestHandler):
+  """Base handler for page handlers
+
+  Base handler for page handlers with common functionality.
+
+  Attributes:
+    JINJA_ENV: A jinja2.Environment instance
+    self.user: A User entity instance
+  """
   JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(settings.TEMPLATE_PATH),
     autoescape=settings.TEMPLATE_ESCAPE,
@@ -41,23 +48,33 @@ class BaseHandler(webapp2.RequestHandler):
         prefix='jinja2/bytecode/', timeout=settings.JINJA2_BYTECODE_TIMEOUT)
   )
 
+  def __init__(self, request, response):
+    """Overrides super class constructor and sets the user attribute"""
+    self.initialize(request, response)
+    self.user = self.checkLogin()
+
   def render(self, template, **params):
+    """Renders and writes a jinja2 template with correct headers"""
     self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
     template = self.JINJA_ENV.get_template(template)
     self.response.out.write(template.render(self.addMiscValues(params)))
 
   def addMiscValues(self, raw):
+    """Adds miscelanious values to the input raw{} to be used in the templates"""
     raw['settings'] = settings
     raw['user'] = self.user
     return raw
 
   def setCookie(self, name, value):
+    """Sets a cookie with the given name and value for the root path"""
     self.response.headers.add_header('Set-Cookie', '%s=%s; Path=/' % (name, value))
 
   def delCookie(self, name):
+    """Deletes a cookie with the given name"""
     self.response.headers.add_header('Set-Cookie', '%s=; Path=/' % name)
 
   def checkLogin(self):
+    """Checks the users cookie for authenticity. If it fails, deletes the cookie"""
     uid = self.request.cookies.get('uid')
     if uid:
       check = utils.checkCookie(uid)
@@ -69,13 +86,13 @@ class BaseHandler(webapp2.RequestHandler):
         return None
 
   def restrictedArea(self, reverse=False):
+    """Redirects the user to SignupPage if not authenticated
+
+      If reverse is True, the user will get logged out and the request handled.
+    """
     if reverse:
       self.delCookie('uid')
       self.user = None
     else:
       if not self.user:
         self.redirect(uri_for('signup'))
-
-  def __init__(self, request, response):
-    self.initialize(request, response)
-    self.user = self.checkLogin()

@@ -29,14 +29,31 @@ from base import BaseHandler
 from models import User
 
 class SignupPage(BaseHandler):
+  """Page handler for the signup page
+
+  Page handler to handle the requests for the signup page.
+  Inherits common functionality from BaseHandler.
+  """
   def get(self):
+    """Handles the get requests for signup page
+
+    The user will get logged out when authentication succeeds and the requested
+    page will be displayed.
+    """
     self.restrictedArea(True)
     self.render('signup.html')
 
   def post(self):
-    fields = ['username', 'password', 'verify', 'email']
+    """Handles the post requests for the signup page
+
+    The user will get logged out when authentication succeeds and the request
+    will get processed.
+    """
+    self.restrictedArea(True)
+    fields = [ 'username', 'password', 'verify', 'email' ]
     raw = { field: self.request.get(field) for field in fields }
     error, params = utils.validateSignup(**raw)
+    
     if error:
       self.render('signup.html', **params)
     else:
@@ -50,14 +67,31 @@ class SignupPage(BaseHandler):
         self.redirect('/')
 
 class LoginPage(BaseHandler):
+  """Page handler for the login page
+
+  Page handler to handle the requests for the login page.
+  Inherits common functionality from BaseHandler.
+  """
   def get(self):
+    """Handles the get requests for login page
+
+    The user will get logged out when authentication succeeds and the requested
+    page will be displayed.
+    """
     self.restrictedArea(True)
     self.render('login.html')
 
   def post(self):
-    fields = ['username', 'password']
+    """Handles the post requests for the login page
+
+    The user will get logged out when authentication succeeds and the request
+    will get processed.
+    """
+    self.restricted(True)
+    fields = [ 'username', 'password' ]
     raw = { field: self.request.get(field) for field in fields }
     error, params = utils.validateLogin(**raw)
+    
     if error:
       self.render('login.html', **params)
     else:
@@ -70,6 +104,15 @@ class LoginPage(BaseHandler):
         self.render('login.html', **params)
 
 class LogoutPage(BaseHandler):
+  """Page handler for the logout page
+
+  Page handler to handle the requests for the logout page.
+  Inherits common functionality from BaseHandler.
+  """
   def get(self):
+    """Handles the get requests for logout page
+
+    Cookie will be deleted and redirected to the root url.
+    """
     self.delCookie('uid')
     self.redirect('/')
