@@ -23,6 +23,7 @@
 import webapp2
 import handlers
 
+# A list containing webapp2.Route instances to define the routing tables
 ROUTE_LIST = [
   webapp2.Route(r'/signup', handler=handlers.SignupPage, name='signup'),
   webapp2.Route(r'/login', handler=handlers.LoginPage, name='login'),

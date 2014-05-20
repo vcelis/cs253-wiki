@@ -18,7 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+# Cron configuration
+# https://developers.google.com/appengine/docs/python/config/cron
 cron:
+
 #- description: hourly 1
 #  url: /services/task1
 #  schedule: every 1 hours synchronized

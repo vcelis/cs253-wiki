@@ -18,7 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+# Indexes configuration
+# https://developers.google.com/appengine/docs/python/config/indexconfig
 indexes:
+
 - kind: Page
   properties:
   - name: name

@@ -18,6 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+# App configuration
+# https://developers.google.com/appengine/docs/python/config/appconfig
 application: uda-cs253-wiki
 version: 1
 runtime: python27
@@ -26,7 +28,9 @@ threadsafe: yes
 
 default_expiration: '30d'
 
+
 handlers:
+
 - url: /apple-touch-icon\.png
   mime_type: image/png
   static_files: static/img/apple-touch-icon.png
@@ -63,19 +67,25 @@ handlers:
 - url: /.*
   script: main.app
 
+
 libraries:
+
 - name: webapp2
   version: latest
 
 - name: jinja2
   version: latest
 
+
 builtins:
+
 - deferred: Off
 - remote_api: Off
 - appstats: Off
 
+
 skip_files:
+
 - ^(.*/)?#.*#
 - ^(.*/)?.*~
 - ^(.*/)?.*\.py[co]
@@ -85,4 +95,3 @@ skip_files:
 - ^node_modules/.*
 - ^resources/.*
 - ^\.git/.*
-
