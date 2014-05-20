@@ -1,4 +1,25 @@
 # -*- coding: utf-8 -*-
+
+# Copyright (c) 2014 Vincent Celis
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
 import os
 import re
 
@@ -34,6 +55,13 @@ RE_PASSWORD = re.compile(r'^.{3,20}$')
 RE_EMAIL = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 
 # Cookie salt
-COOKIE_SALT = r'Z}QKEA~Qe.f4&uz,t@XXbA.>(~RY>ZcYUPK45Udz<f.=;n3Gn)dFKf&M*.S2tqT}'
+COOKIE_SALT = r'Z}QKEA~Qef4&uz,t@XXbA>(~RY>ZcYUPK45Udz<f=;n3Gn)dFKf&MS2tqT}'
 
-RESERVED_PAGES = [ '/_edit', '/_history', '/login','/signup', '/logout', '/', '' ]
+RESERVED_PAGES = [ '/_edit', '/_history', '/login','/signup', '/logout', '/' ]
+
+RE_USERNAME_FAIL = 'That\'s not a valid username.'
+RE_PASSWORD_FAIL = 'That\'s not a valid password.'
+RE_EMAIL_FAIL = 'That\'s not a valid email.'
+
+RE_PASSWORD_EMPTY = 'You didn\'t enter any password.'
+RE_PASSWORD_MATCH = 'Your passwords didn\'t match.'

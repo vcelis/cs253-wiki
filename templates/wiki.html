@@ -14,5 +14,8 @@
   </div>
 </div>
 <p>{{ page.content | safe }}</p>
-<p class="text-muted credit">Version: {{ page.version }} | Author: {{ page.author }} | Created: {{ page.created.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+<p class="text-muted credit">
+  Version: {{ page.version }} | Author: {{ page.author }} | 
+  Created: {{ page.created.strftime('%Y-%m-%d %H:%M:%S') }}
+</p>
 {% endblock %}
