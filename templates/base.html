@@ -24,13 +24,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png" />
 
     {% if settings.FORCE_DEV %}
-      <link rel="stylesheet" href="/css/bootstrap.min.css">
-      <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
-      <link rel="stylesheet" href="/css/font-awesome.min.css">
-      <link rel="stylesheet" href="/css/layout.css">
-      <link rel="stylesheet" href="/css/style.css">
+      <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="/css/layout.css">
+      <link rel="stylesheet" type="text/css" href="/css/style.css">
     {% else %}
-      <link rel="stylesheet" href="/css/all.min.css">
+      <link rel="stylesheet" type="text/css" href="/css/all.min.css">
     {% endif %}
 
     <!--[if lt IE 9]>
@@ -44,7 +44,10 @@
       {% include 'navigation.html' %}
     </div>
     <div id="content" class="container">
-      {% block content %} {% endblock %}
+      {% block content %}{% endblock %}
     </div>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    {% block tail_include %}{% endblock %}
   </body>
 </html>

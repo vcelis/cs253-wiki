@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block head_include %}{% endblock %}
+{% block content %}
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="text-center">Login</h1>
+      </div>
+      <div class="modal-body">
+        <form class="form col-md-12 center-block" method="POST">
+          {% if error_login %}
+            <div class="alert alert-danger">{{ error_login }}</div>
+          {% endif %}
+          <div class="form-group">
+            <input type="text" name="username" value="{{username}}" class="form-control input-lg" placeholder="Username">
+          </div>
+          {% if error_username %}
+            <div class="alert alert-danger">{{ error_username }}</div>
+          {% endif %}
+          <div class="form-group">
+            <input type="password" name="password" value="" class="form-control input-lg" placeholder="Password">
+          </div>
+          {% if error_password %}
+            <div class="alert alert-danger">{{ error_password }}</div>
+          {% endif %}
+          <div class="form-group">
+            <button class="btn btn-primary btn-lg btn-block">Login</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span class="pull-right"><a href="/signup">Sign Up</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

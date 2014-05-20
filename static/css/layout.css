@@ -1,3 +1,10 @@
 div#content {
   margin-top: 50px;
 }
+.modal-footer {
+  border-top: 0px;
+}
+#loginModal {
+  top: 75px;
+  z-index: 0;
+}

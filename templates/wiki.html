@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{ page.name | safe }}{% endblock %}
+{% block head_include %}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="row-fluid">
+    <div class="span6">
+      <h1>{{ page.name.title() | safe }}</h1>
+    </div>
+    <div class="span6 pull-right" style="text-align: right; margin-top: -12px;">
+      <a href="/_edit/{{ page.name }}?v={{ page.version }}">Edit</a> |
+      <a href="/_history/{{ page.name }}">History</a>
+    </div>
+  </div>
+</div>
+<p>{{ page.content | safe }}</p>
+<p class="text-muted credit">Version: {{ page.version }} | Author: {{ page.author }} | Created: {{ page.created.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+{% endblock %}

@@ -1,5 +1,4 @@
-# TODO: Change application to your unique identifier
-application: gae-boilerplate
+application: uda-cs253-wiki
 version: 1
 runtime: python27
 api_version: 1
@@ -66,3 +65,4 @@ skip_files:
 - ^node_modules/.*
 - ^resources/.*
 - ^\.git/.*
+

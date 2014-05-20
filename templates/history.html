@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}History {{ page.name | safe }}{% endblock %}
+{% block head_include %}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>History for page: {{ page[0].name | safe }}</h1>
+</div>
+<table class="table table-borderless table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Author</th>
+      <th>Created</th>
+      <th>Content</th>
+      <th colspan="2">Links</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in page %}
+      <tr>
+      <td>{{ p.version | safe }}</td>
+      <td>{{ p.author | safe }}</td>
+      <td>{{ p.created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+      <td>{{ p.content | truncate(75)}}</td>
+      <td><a class="btn btn-default" href="/{{ p.name }}?v={{ p.version }}">View</a></td>
+      <td><a class="btn btn-warning" href="/_edit/{{ p.name }}?v={{ p.version }}">Edit</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+{% block tail_include %}{% endblock %}
