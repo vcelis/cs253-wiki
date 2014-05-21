@@ -138,7 +138,7 @@ def checkCookie(raw):
 
 def genSalt(length=5):
   """Returns a string containing <length> random letters"""
-  return ''.join(random.choice(string.letters) for x in xrange(length))
+  return ''.join(random.choice(letters) for x in xrange(length))
 
 def genPwHash(name, pw, salt=None):
   """Generates the password hash to store in the datastore

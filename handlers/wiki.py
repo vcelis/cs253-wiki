@@ -24,7 +24,6 @@ import logging
 
 import utils
 
-from datetime import datetime
 from base import BaseHandler
 from models import Page
 
@@ -53,7 +52,7 @@ class WikiPage(BaseHandler):
     version = None if not version else int(version)
 
     if version:
-      page = Page.query().filter(Page.name == name)
+      page = Page.query(ancestor=Page.getKey()).filter(Page.name == name)
       page = page.filter(Page.version == version).fetch()
       if not page:
         self.redirect('/%s' % name)
@@ -61,7 +60,7 @@ class WikiPage(BaseHandler):
         params = { 'page':  page[0] }
         self.render('wiki.html', **params)
     else:
-      page = Page.query().filter(Page.name == name).order(-Page.version).fetch()
+      page = Page.query(ancestor=Page.getKey()).filter(Page.name == name).order(-Page.version).fetch()
       if not page:
         self.redirect('/_edit/%s' % name)
       else:
@@ -93,33 +92,24 @@ class EditPage(BaseHandler):
     name = utils.checkPage(name)
 
     version = self.request.get('v')
-    version = None if not version else int(version) 
+    version = 0 if not version else int(version) 
     
-    if version:
-      page = Page.query().filter(Page.name == name)
-      page = page.filter(Page.version == version).fetch()
-      if not page:
-        self.redirect('/_edit/%s' % name)
-      else:
-        params = { 'page': page[0] }
-        self.render('edit.html', **params)
-    else:
-      page = Page.query().filter(Page.name == name).order(Page.version).fetch()
-      if not page:
-        page = Page(name=name, content='', version=1, created=datetime.utcnow(),
-                    author='admin')
-      else:
-        page = page[0]
-      params = { 'page': page }
-      self.render('edit.html', **params)
+    page = Page.getName(name, version)
+
+    if not page and version:
+      self.redirect('/_edit/%s' % name)
+      return None
+
+    if not page and not version:
+      page = Page.createPage(name)
+
+    params = { 'page': page }
+    self.render('edit.html', **params)
 
   def post(self, name):
     """Handles the post requests for edit page of the wiki pages
 
     The user will get redirected to the SignupPage if authentication fails.
-
-    The version will be computed by counting the total number of entities for
-    the given page and adding 1.
 
     The entity will be stored and the user gets redirected to the new version of
     the page.
@@ -127,12 +117,9 @@ class EditPage(BaseHandler):
     self.restrictedArea()
     name = utils.checkPage(name)
 
-    content = self.request.get('content')
-    version = len(Page.query().filter(Page.name == name).fetch())+1
-    
-    page = Page(name=name, content=content, version=version,
-                created=datetime.utcnow(), author=self.user.name)
+    page = Page.createPage(name, self.request.get('content'), self.user.name)
     page.put()
+    
     self.redirect('/%s' % name)
 
 class HistoryPage(BaseHandler):
@@ -148,9 +135,11 @@ class HistoryPage(BaseHandler):
     url.
     """
     name = utils.checkPage(name)
-    page = Page.query().filter(Page.name == name).fetch()
-    if not page:
+    versions = Page.getNameAll(name)
+    
+    if not versions:
       self.redirect('/')
-    else:
-      params = { 'page': page }
-      self.render('history.html', **params)
+      return None
+    
+    params = { 'versions': versions, 'page': versions[0] }
+    self.render('history.html', **params)

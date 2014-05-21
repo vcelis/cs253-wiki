@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}History {{ page.name | safe }}{% endblock %}
+{% block title %}History {{ page.name.title() | safe }}{% endblock %}
 {% block head_include %}{% endblock %}
 {% block content %}
 <div class="page-header">
-  <h1>History for page: {{ page[0].name | safe }}</h1>
+  <h1>History for page: {{ page.name.title() | safe }}</h1>
 </div>
 <table class="table table-borderless table-striped table-hover">
   <thead>
@@ -16,14 +16,14 @@
     </tr>
   </thead>
   <tbody>
-    {% for p in page %}
+    {% for version in versions %}
       <tr>
-      <td>{{ p.version | safe }}</td>
-      <td>{{ p.author | safe }}</td>
-      <td>{{ p.created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-      <td>{{ p.content | truncate(75)}}</td>
-      <td><a class="btn btn-default" href="/{{ p.name }}?v={{ p.version }}">View</a></td>
-      <td><a class="btn btn-warning" href="/_edit/{{ p.name }}?v={{ p.version }}">Edit</a></td>
+      <td>{{ version.version | safe }}</td>
+      <td>{{ version.author | safe }}</td>
+      <td>{{ version.created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+      <td>{{ version.content | truncate(75)}}</td>
+      <td><a class="btn btn-default" href="/{{ version.name }}?v={{ version.version }}">View</a></td>
+      <td><a class="btn btn-warning" href="/_edit/{{ version.name }}?v={{ version.version }}">Edit</a></td>
     </tr>
     {% endfor %}
   </tbody>

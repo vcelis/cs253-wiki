@@ -23,6 +23,7 @@
 indexes:
 
 - kind: Page
+  ancestor: yes
   properties:
   - name: name
   - name: version

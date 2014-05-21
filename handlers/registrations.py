@@ -87,7 +87,7 @@ class LoginPage(BaseHandler):
     The user will get logged out when authentication succeeds and the request
     will get processed.
     """
-    self.restricted(True)
+    self.restrictedArea(True)
     fields = [ 'username', 'password' ]
     raw = { field: self.request.get(field) for field in fields }
     error, params = utils.validateLogin(**raw)

@@ -54,7 +54,7 @@ class User(ndb.Model):
   @classmethod
   def getName(cls, name):
     """Returns the entity instance for a given username if exists"""
-    u = User.query().filter(User.name == name).fetch(1)
+    u = User.query(ancestor=User.getKey()).filter(User.name == name).fetch(1)
     return u[0] if u else None
 
   @classmethod

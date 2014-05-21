@@ -55,9 +55,10 @@ class BaseHandler(webapp2.RequestHandler):
 
   def render(self, template, **params):
     """Renders and writes a jinja2 template with correct headers"""
+    params = self.addMiscValues(params)
+    
     self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
-    template = self.JINJA_ENV.get_template(template)
-    self.response.out.write(template.render(self.addMiscValues(params)))
+    self.response.out.write(self.JINJA_ENV.get_template(template).render(params))
 
   def addMiscValues(self, raw):
     """Adds miscelanious values to the input raw{} to be used in the templates"""
