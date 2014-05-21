@@ -27,6 +27,37 @@
   <li>Strong consistent query results</li>
 </ul>
 
+<h2>Backend Technologies used</h2>
+<ul>
+  <li><a href="https://www.python.org/">Python 2.7</a</li>
+  <li><a href="https://developers.google.com/appengine/docs/python/ndb/">Google NDB datastore API</a></li>
+  <li><a href="https://developers.google.com/appengine/docs/python/search/">Google full text search API</a></li>
+  <li><a href="https://developers.google.com/appengine/docs/python/memcache/">Google memcache API</a></li>
+  <li><a href="http://jinja.pocoo.org/docs/">Jinja2</a></li>
+  <li><a href="http://webapp-improved.appspot.com/">webapp2 python web framework</a></li>
+  <ul>
+    <li><a href="http://webapp-improved.appspot.com/api/webapp2_extras/routes.html">webapp2_routes</a></li>
+  </ul>
+</ul>
+
+<h2>Front-end Technologies</h2>
+<ul>
+  <li><a href="http://html5boilerplate.com/">HTML5 Boilerpalte</a></li>
+  <li><a href="http://getbootstrap.com/">Twitter Bootstrap</a></li>
+  <li><a href="http://jquery.com/">JQuery</a></li>
+  <li><a href="https://code.google.com/p/html5shiv/">HTML5 shiv</a></li>
+  <li><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></li>
+  <li><a href="http://www.tinymce.com/">TinyMCE WYSIWYG editor</a></li>
+</ul>
+
+<h2>Security</h2>
+<h4>Passwords</h4>
+<p>Passwords are hashed by an unique salt combined with the users info with the sha256 algorithm.</p>
+
+<h4>Authentication</h4>
+<p>As a form of session authentication a cookie is used with the users uid that matches the id of the users datastore entity. The cookie is of the form UID|HASH where hash is a combination of a common salt and the uid using the hmac algorithm.</p>
+<p>This is a part where theproject should improve to increase session security</p>
+
 <h2>License</h2>
 <p>The MIT License (MIT)</p>
 
