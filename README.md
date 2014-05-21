@@ -19,7 +19,7 @@
 <ul>
   <li>Authentication (Sign In, Sign Out, Sign Up, Validation)</li>
   <li>Server side form validation</li>
-  <li>Wiki module (Add, Edit</li>
+  <li>Wiki module (Add, Edit)</li>
   <li>Wiki page history system</li>
   <li>Full text search over all pages</li>
   <li>Auto memcached responsive design templates</li>
