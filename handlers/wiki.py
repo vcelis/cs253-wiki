@@ -50,7 +50,11 @@ class WikiPage(BaseHandler):
     name = utils.checkPage(name)
     
     version = self.request.get('v')
-    version = None if not version else int(version)
+    try:
+      version = None if not version else int(version)
+    except ValueError:
+      logging.error('Invalid version format givven')
+      version = None
 
     if version:
       page = Page.query(ancestor=Page.getKey()).filter(Page.name == name)
@@ -156,7 +160,7 @@ class SearchPage(BaseHandler):
   def get(self):
     """Handles the get requests for the search page
 
-    Some more detailed info here
+    If no query is present an empty list of results will be passed to jinja.
     """
     query = self.request.get('q')
     results = []

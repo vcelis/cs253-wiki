@@ -94,7 +94,7 @@ def validateSignup(**raw):
     params['error_password'] = settings.RE_PASSWORD_FAIL
     error = True
   elif raw['password'] != raw['verify']:
-    params['error_verify'] = RE_PASSWORD_MATCH
+    params['error_verify'] = settings.RE_PASSWORD_MATCH
     error = True
   
   if not utils.validateEmail(raw['email']):
@@ -175,22 +175,28 @@ def addSearchIndex(page):
   doc = search.Document(fields=fields)
 
   try:
-    search.Index(name='wiki').put(doc)
+    search.Index(name=settings.SEARCH_INDEX_WIKI).put(doc)
   except search.Error as e:
     logging.error('Error while adding page to search index:')
     logging.error(e)
 
 def searchQuery(query):
-  """Returns a list of results for the given query"""
+  """Returns a list of results for the given query
+
+  If the query raises an search.Error exception the result will be empty.
+
+  Args:
+    query: A string containing the search query
+
+  Returns:
+    - list(): A list containing the indexed information for the result
+  """
   r = []
   try:
-    results = search.Index('wiki').search(query)
+    results = search.Index(settings.SEARCH_INDEX_WIKI).search(query)
     for result in results:
-      fields = result.fields
-      tmp = {}
-      for field in fields:
-        tmp[field.name] = field.value
-      r.append(tmp)
+      hit = { field.name: field.value for field in result.fields }
+      r.append(hit)
   except search.Error as e:
     logging.error('Error while searching the index:')
     logging.error(e)

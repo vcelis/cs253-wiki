@@ -71,3 +71,6 @@ COOKIE_SALT = r'Z}QKEA~Qef4&uz,t@XXbA>(~RY>ZcYUPK45Udz<f=;n3Gn)dFKf&MS2tqT}'
 # Reserved pages that can't be edited; Avoids for example: /_edit/_edit/
 RESERVED_PAGES = [ '/_edit', '/_history', '/login','/signup', '/logout',
                    '/search', '/', '' ]
+
+# Search API wiki index name
+SEARCH_INDEX_WIKI = 'wiki'
