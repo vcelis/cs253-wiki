@@ -42,13 +42,17 @@
 
 <h2>Front-end Technologies</h2>
 <ul>
-  <li><a href="http://html5boilerplate.com/">HTML5 Boilerpalte</a></li>
+  <li><a href="http://html5boilerplate.com/">HTML5 Boilerplate</a></li>
   <li><a href="http://getbootstrap.com/">Twitter Bootstrap</a></li>
   <li><a href="http://jquery.com/">JQuery</a></li>
   <li><a href="https://code.google.com/p/html5shiv/">HTML5 shiv</a></li>
   <li><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></li>
   <li><a href="http://www.tinymce.com/">TinyMCE WYSIWYG editor</a></li>
 </ul>
+
+<h2>Caching</h2>
+<p>The NDB datastore API handles model query caching automaticly using memache.</p>
+<p>The jinja2 environment is configured to use memcache to cache the html requests.</p>
 
 <h2>Security</h2>
 <h4>Passwords</h4>
