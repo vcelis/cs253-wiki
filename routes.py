@@ -28,6 +28,7 @@ ROUTE_LIST = [
   webapp2.Route(r'/signup', handler=handlers.SignupPage, name='signup'),
   webapp2.Route(r'/login', handler=handlers.LoginPage, name='login'),
   webapp2.Route(r'/logout', handler=handlers.LogoutPage, name='logout'),
+  webapp2.Route(r'/search', handler=handlers.SearchPage, name='search'),
   webapp2.Route(r'/_edit<name:/(?:[a-zA-Z0-9_-]+/?)*>',
                 handler=handlers.EditPage, name='edit'),
   webapp2.Route(r'/_history<name:/(?:[a-zA-Z0-9_-]+/?)*>',

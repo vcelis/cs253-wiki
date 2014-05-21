@@ -28,3 +28,4 @@ from registrations import LogoutPage
 from wiki import EditPage
 from wiki import HistoryPage
 from wiki import WikiPage
+from wiki import SearchPage

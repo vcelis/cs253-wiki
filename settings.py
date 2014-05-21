@@ -44,6 +44,15 @@ TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), TEMPLATE_DIR)
 TEMPLATE_ESCAPE = True
 # Jinja2 cache timeout
 JINJA2_BYTECODE_TIMEOUT = 3600
+# Template filenames
+TEMPLATE_FILENAME = {
+  'login': 'login.html',
+  'signup': 'signup.html',
+  'wiki': 'wiki.html',
+  'edit': 'edit.html',
+  'history': 'history.html',
+  'search': 'search.html'
+}
 
 # Regex for form fields
 RE_USERNAME = re.compile(r'^[a-zA-Z0-9_-]{3,20}$')
@@ -60,4 +69,5 @@ RE_PASSWORD_MATCH = 'Your passwords didn\'t match.'
 COOKIE_SALT = r'Z}QKEA~Qef4&uz,t@XXbA>(~RY>ZcYUPK45Udz<f=;n3Gn)dFKf&MS2tqT}'
 
 # Reserved pages that can't be edited; Avoids for example: /_edit/_edit/
-RESERVED_PAGES = [ '/_edit', '/_history', '/login','/signup', '/logout', '/' ]
+RESERVED_PAGES = [ '/_edit', '/_history', '/login','/signup', '/logout',
+                   '/search', '/', '' ]

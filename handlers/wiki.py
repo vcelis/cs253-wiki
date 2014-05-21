@@ -23,6 +23,7 @@
 import logging
 
 import utils
+import settings
 
 from base import BaseHandler
 from models import Page
@@ -58,14 +59,14 @@ class WikiPage(BaseHandler):
         self.redirect('/%s' % name)
       else:
         params = { 'page':  page[0] }
-        self.render('wiki.html', **params)
+        self.render(settings.TEMPLATE_FILENAME['wiki'], **params)
     else:
       page = Page.query(ancestor=Page.getKey()).filter(Page.name == name).order(-Page.version).fetch()
       if not page:
         self.redirect('/_edit/%s' % name)
       else:
         params = { 'page': page[0] }
-        self.render('wiki.html', **params)
+        self.render(settings.TEMPLATE_FILENAME['wiki'], **params)
 
 class EditPage(BaseHandler):
   """Page handler for the edit page of the individual wiki pages
@@ -104,7 +105,7 @@ class EditPage(BaseHandler):
       page = Page.createPage(name)
 
     params = { 'page': page }
-    self.render('edit.html', **params)
+    self.render(settings.TEMPLATE_FILENAME['edit'], **params)
 
   def post(self, name):
     """Handles the post requests for edit page of the wiki pages
@@ -119,6 +120,8 @@ class EditPage(BaseHandler):
 
     page = Page.createPage(name, self.request.get('content'), self.user.name)
     page.put()
+
+    utils.addSearchIndex(page)
     
     self.redirect('/%s' % name)
 
@@ -142,4 +145,23 @@ class HistoryPage(BaseHandler):
       return None
     
     params = { 'versions': versions, 'page': versions[0] }
-    self.render('history.html', **params)
+    self.render(settings.TEMPLATE_FILENAME['history'], **params)
+
+class SearchPage(BaseHandler):
+  """Page handler for the wiki search page
+
+  Page handler to handle the requests for the search page.
+  Inherits common functionality from BaseHandler.
+  """
+  def get(self):
+    """Handles the get requests for the search page
+
+    Some more detailed info here
+    """
+    query = self.request.get('q')
+    results = []
+    if query:
+      results = utils.searchQuery(query)
+
+    params = { 'results': results, 'search_query': query }
+    self.render(settings.TEMPLATE_FILENAME['search'], **params)

@@ -41,7 +41,7 @@ class SignupPage(BaseHandler):
     page will be displayed.
     """
     self.restrictedArea(True)
-    self.render('signup.html')
+    self.render(settings.TEMPLATE_FILENAME['signup'])
 
   def post(self):
     """Handles the post requests for the signup page
@@ -55,11 +55,11 @@ class SignupPage(BaseHandler):
     error, params = utils.validateSignup(**raw)
     
     if error:
-      self.render('signup.html', **params)
+      self.render(settings.TEMPLATE_FILENAME['signup'], **params)
     else:
       if User.getName(raw['username']):
         params['error_username'] = 'That username already exists.'
-        self.render('signup.html', **params)
+        self.render(settings.TEMPLATE_FILENAME['signup'], **params)
       else:
         u = User.register(raw['username'], raw['password'], raw['email'])
         u.put()
@@ -79,7 +79,7 @@ class LoginPage(BaseHandler):
     page will be displayed.
     """
     self.restrictedArea(True)
-    self.render('login.html')
+    self.render(settings.TEMPLATE_FILENAME['login'])
 
   def post(self):
     """Handles the post requests for the login page
@@ -93,7 +93,7 @@ class LoginPage(BaseHandler):
     error, params = utils.validateLogin(**raw)
     
     if error:
-      self.render('login.html', **params)
+      self.render(settings.TEMPLATE_FILENAME['login'], **params)
     else:
       u = User.login(raw['username'], raw['password'])
       if u:
@@ -101,7 +101,7 @@ class LoginPage(BaseHandler):
         self.redirect('/')
       else:
         params['error_login'] = 'Invalid username and/or password'
-        self.render('login.html', **params)
+        self.render(settings.TEMPLATE_FILENAME['login'], **params)
 
 class LogoutPage(BaseHandler):
   """Page handler for the logout page

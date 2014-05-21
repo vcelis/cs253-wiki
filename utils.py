@@ -19,8 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 import logging
+
 import re
 import random
 import hashlib
@@ -30,6 +30,7 @@ import utils
 import settings
 
 from string import letters
+from google.appengine.api import search
 
 def validateUsername(username):
   """Returns True if the username is not empty AND matched the regex"""
@@ -163,3 +164,34 @@ def genPwHash(name, pw, salt=None):
 def checkPage(page):
   """Modifies a given raw page (path) to a useable page name"""
   return 'home' if str(page) in settings.RESERVED_PAGES else page[1:]
+
+def addSearchIndex(page):
+  """Adds the given page to the search API index"""
+  fields = [
+      search.TextField(name='name', value=page.name),
+      search.HtmlField(name='content', value=page.content),
+      search.NumberField(name='version', value=page.version)
+      ]
+  doc = search.Document(fields=fields)
+
+  try:
+    search.Index(name='wiki').put(doc)
+  except search.Error as e:
+    logging.error('Error while adding page to search index:')
+    logging.error(e)
+
+def searchQuery(query):
+  """Returns a list of results for the given query"""
+  r = []
+  try:
+    results = search.Index('wiki').search(query)
+    for result in results:
+      fields = result.fields
+      tmp = {}
+      for field in fields:
+        tmp[field.name] = field.value
+      r.append(tmp)
+  except search.Error as e:
+    logging.error('Error while searching the index:')
+    logging.error(e)
+  return r

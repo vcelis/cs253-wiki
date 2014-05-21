@@ -8,7 +8,9 @@
       <h1>{{ page.name.title() | safe }}</h1>
     </div>
     <div class="span6 pull-right" style="text-align: right; margin-top: -12px;">
+      {% if user %}
       <a href="/_edit/{{ page.name }}?v={{ page.version }}">Edit</a> |
+      {% endif %}
       <a href="/_history/{{ page.name }}">History</a>
     </div>
   </div>
