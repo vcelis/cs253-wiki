@@ -24,7 +24,7 @@ import os
 import re
 
 # Enable/Disables GAE dev mode
-FORCE_DEV = True
+FORCE_DEV = False
 
 # Application title and meta settings
 APP_TITLE = 'Wiki'
