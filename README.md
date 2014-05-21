@@ -6,7 +6,7 @@
 <p>Every aspect of the course is implemented in this project and even the relative new full text search API.</p>
 <p>The code follows the <a href="http://google-styleguide.googlecode.com/svn/trunk/pyguide.html">Google Python style guide</a>.</p>
 
-<h2>Usefull links</h2>
+<h2>Useful links</h2>
 <ul>
   <li><a href="https://www.udacity.com/course/cs253">Udacity CS253: Web Development course overview</a></li>
   <li><a href="https://www.youtube.com/watch?v=bdes6p2h_YU">Final exam instructions</a></li>
@@ -51,7 +51,7 @@
 </ul>
 
 <h2>Caching</h2>
-<p>The NDB datastore API handles model query caching automaticly using memache.</p>
+<p>The NDB datastore API handles model query caching automatically using memache.</p>
 <p>The jinja2 environment is configured to use memcache to cache the html requests.</p>
 
 <h2>Security</h2>
@@ -60,7 +60,7 @@
 
 <h4>Authentication</h4>
 <p>As a form of session authentication a cookie is used with the users uid that matches the id of the users datastore entity. The cookie is of the form UID|HASH where hash is a combination of a common salt and the uid using the hmac algorithm.</p>
-<p>This is a part where theproject should improve to increase session security</p>
+<p>This is a part where the project should improve to increase session security</p>
 
 <h2>License</h2>
 <p>The MIT License (MIT)</p>
