@@ -73,4 +73,4 @@ RESERVED_PAGES = [ '/_edit', '/_history', '/login','/signup', '/logout',
                    '/search', '/', '' ]
 
 # Search API wiki index name
-SEARCH_INDEX_WIKI = 'wiki'
+SEARCH_INDEX_WIKI = 'pages'
