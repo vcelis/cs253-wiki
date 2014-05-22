@@ -29,8 +29,7 @@ from google.appengine.ext import ndb
 class Page(ndb.Model):
   """Models the Page entity for the datastore
 
-  Models the Page entity for storage in the datastore. It has one @classmethod
-  to retreive a entity by name.
+  Models the Page entity for storage in the datastore.
 
   Attributes:
     name: A string containing the name of the page
@@ -64,9 +63,25 @@ class Page(ndb.Model):
 
   @classmethod
   def getNameAll(cls, name):
+    """Returns all the version of a given pagename in descending order"""
     query = Page.query(ancestor=Page.getKey())
     query = query.filter(Page.name == name).order(-Page.version)
     return query.fetch()
+
+  @classmethod
+  def getLast(cls, i):
+    """Returns the last i edited pages"""
+    result = []
+    tmp = []
+    query = Page.query(ancestor=Page.getKey())
+    query = query.order(-Page.created)
+    
+    for r in query.fetch(i):
+      if r.name not in tmp:
+        result.append(r)
+        tmp.append(r.name)
+
+    return result
 
   @classmethod
   def createPage(cls, name, content='', author='admin'):

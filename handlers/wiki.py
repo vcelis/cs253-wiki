@@ -48,8 +48,9 @@ class WikiPage(BaseHandler):
     redirected to '/_edit' which will be handled by EditPage.
     """
     name = utils.checkPage(name)
-    
+    last_pages = Page.getLast(10)
     version = self.request.get('v')
+
     try:
       version = None if not version else int(version)
     except ValueError:
@@ -62,14 +63,14 @@ class WikiPage(BaseHandler):
       if not page:
         self.redirect('/%s' % name)
       else:
-        params = { 'page':  page[0] }
+        params = { 'page':  page[0], 'last_pages': last_pages }
         self.render(settings.TEMPLATE_FILENAME['wiki'], **params)
     else:
       page = Page.query(ancestor=Page.getKey()).filter(Page.name == name).order(-Page.version).fetch()
       if not page:
         self.redirect('/_edit/%s' % name)
       else:
-        params = { 'page': page[0] }
+        params = { 'page': page[0], 'last_pages': last_pages }
         self.render(settings.TEMPLATE_FILENAME['wiki'], **params)
 
 class EditPage(BaseHandler):

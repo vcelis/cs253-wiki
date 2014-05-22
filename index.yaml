@@ -26,5 +26,7 @@ indexes:
   ancestor: yes
   properties:
   - name: name
+  - name: created
+    direction: desc
   - name: version
     direction: desc
