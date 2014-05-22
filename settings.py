@@ -33,8 +33,8 @@ APP_KEYWORDS = 'Wiki, GAE, Udacity, CS253, Google App Engine, vincentcelis.be'
 APP_AUTHOR = 'Vincent Celis'
 # URL's for the canonical meta information
 APP_URLS = {
-  'canonical': 'http://uda-cs253-wiki.appspot.com',
-  'canonical_secure': 'http://uda-cs253-wiki.appspot.com'
+  'canonical': 'http://wiki.vincentcelis.be',
+  'canonical_secure': 'http://wiki.vincentcelis.be'
 }
 
 # The directory where the templates live

@@ -1,6 +1,6 @@
 <h1>CS253-Wiki</h1>
 <p>Welcome to my final exam submission for the Udacity CS253: Web Development course.</p>
-<p><a href="http://uda-cs253-wiki.appspot.com/">Live Demo</a></p>
+<p><a href="http://wiki.vincentcelis.be/">Live Demo @ http://wiki.vincentcelis.be</a></p>
 
 <h2>What makes this Wiki app Amazing?</h2>
 <p>Every aspect of the course is implemented in this project and even the relative new full text search API.</p>
