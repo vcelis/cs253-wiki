@@ -51,7 +51,7 @@
 </ul>
 
 <h2>Caching</h2>
-<p>The NDB datastore API handles model query caching automatically using memache.</p>
+<p>The NDB datastore API handles model query caching automatically using memcache.</p>
 <p>The jinja2 environment is configured to use memcache to cache the html requests.</p>
 
 <h2>Security</h2>
