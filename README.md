@@ -25,6 +25,7 @@
   <li>Auto memcached responsive design templates</li>
   <li>Central configuration file for easy customization</li>
   <li>Strong consistent query results</li>
+  <li>Recently edited pages widget with multiple template inheritance</li>
 </ul>
 
 <h2>Backend Technologies used</h2>
