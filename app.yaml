@@ -37,7 +37,7 @@ handlers:
 
 - url: /img/(.*\.(gif|png|jpg|ico))
   static_files: static/img/\1
-  upload: static/img/(.*\.(gif|png|jpg))
+  upload: static/img/(.*\.(gif|png|jpg|ico))
 
 - url: /css/(.*\.css)
   mime_type: text/css
