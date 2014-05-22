@@ -28,9 +28,9 @@
       <tbody>
         {% for result in results %}
           <tr class="clickableRow" href='/{{ result.name | safe }}?v={{ result.version | int }}'>
-            <td>{{ result.name | safe }}</td>
+            <td>{{ result.name.title() | safe }}</td>
             <td>{{ result.version | int }}</td>
-            <td>{{ result.content | truncate(100) }}</td>
+            <td>{{ result.content | striptags | truncate(100) }}</td>
           </tr>
         {% endfor %}
       </tbody>
@@ -40,6 +40,11 @@
       <p class="text-muted credit">
         Your search query didn't yield any results.
       </p>
+      {% if search_query_first %}
+        <p class="text-muted credit">
+          Do you want to create a page for <a href="/_edit/{{ search_query_first | striptags | safe }}">{{ search_query_first.title() | striptags | safe }}</a>?
+        </p>
+      {% endif %}
     </div>
   {% endif %}
 {% endblock %}

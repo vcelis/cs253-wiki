@@ -163,10 +163,13 @@ class SearchPage(BaseHandler):
 
     If no query is present an empty list of results will be passed to jinja.
     """
-    query = self.request.get('q')
+    query = self.request.get('q').strip()
     results = []
+    qearch_query_first = ''
     if query:
       results = utils.searchQuery(query)
+      search_query_first = query.split()[0]
 
-    params = { 'results': results, 'search_query': query }
+    params = { 'results': results, 'search_query': query,
+               'search_query_first': search_query_first }
     self.render(settings.TEMPLATE_FILENAME['search'], **params)

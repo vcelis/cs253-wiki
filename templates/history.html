@@ -21,7 +21,7 @@
       <td>{{ version.version | safe }}</td>
       <td>{{ version.author | safe }}</td>
       <td>{{ version.created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-      <td>{{ version.content | truncate(75)}}</td>
+      <td>{{ version.content | striptags | truncate(75)}}</td>
       <td><a class="btn btn-default" href="/{{ version.name }}?v={{ version.version }}">View</a></td>
       <td><a class="btn btn-warning" href="/_edit/{{ version.name }}?v={{ version.version }}">Edit</a></td>
     </tr>
