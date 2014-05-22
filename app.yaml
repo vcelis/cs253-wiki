@@ -31,22 +31,11 @@ default_expiration: '30d'
 
 handlers:
 
-- url: /apple-touch-icon\.png
-  mime_type: image/png
-  static_files: static/img/apple-touch-icon.png
-  upload: static/img/apple-touch-icon.png
-
-- url: /favicon\.ico
-  mime_type: image/png
-  static_files: static/img/favicon.ico
-  upload: static/img/favicon\.ico
-  expiration: 7d
-
 - url: /(robots\.txt|humans\.txt|crossdomain\.xml)
   static_files: static/\1
   upload: static/(robots\.txt|humans\.txt|crossdomain\.xml)
 
-- url: /img/(.*\.(gif|png|jpg))
+- url: /img/(.*\.(gif|png|jpg|ico))
   static_files: static/img/\1
   upload: static/img/(.*\.(gif|png|jpg))
 
