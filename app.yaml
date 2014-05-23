@@ -50,6 +50,7 @@ handlers:
   upload: static/js/(.*\.js)
 
 - url: /fonts/(.*\.(eot|svg|ttf|woff|otf))
+  mime_type: application/octet-stream
   static_files: static/fonts/\1
   upload: static/fonts/(.*\.(eot|svg|ttf|woff|otf))
 
