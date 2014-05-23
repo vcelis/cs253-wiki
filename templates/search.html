@@ -17,12 +17,13 @@
     </div>
   </div>
   {% if results %}
-    <table class="table table-borderless table-striped table-hover">
+    <table class="table table-borderless table-striped table-hover table-condensed">
       <thead>
         <tr>
-          <th>Page</th>
-          <th>Version</th>
-          <th>Content</th>
+          <th class="col-sm-2">Page</th>
+          <th class="col-sm-1">Version</th>
+          <th class="col-sm-8">Content</th>
+          <th class="col-sm-1"></th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +32,7 @@
             <td>{{ result.name.title() | safe }}</td>
             <td>{{ result.version | int }}</td>
             <td>{{ result.content | striptags | truncate(100) }}</td>
+            <td class="text-right"><a class="btn btn-default" href="/{{ result.name | safe }}?v={{ result.version | int }}">View</a></td>
           </tr>
         {% endfor %}
       </tbody>
@@ -48,12 +50,4 @@
     </div>
   {% endif %}
 {% endblock %}
-{% block tail_include %}
-  <script type="text/javascript">
-    jQuery(document).ready(function($) {
-      $(".clickableRow").click(function() {
-          window.document.location = $(this).attr("href");
-      });
-    });
-  </script>
-{% endblock %}
+{% block tail_include %}{% endblock %}
