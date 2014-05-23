@@ -5,14 +5,14 @@
 <div class="page-header">
   <h1>History for page: {{ page.name.title() | safe }}</h1>
 </div>
-<table class="table table-borderless table-striped table-hover">
+<table class="table table-borderless table-striped table-hover table-condensed">
   <thead>
     <tr>
-      <th>Version</th>
-      <th>Author</th>
-      <th>Created</th>
-      <th>Content</th>
-      <th colspan="2">Links</th>
+      <th class="col-sm-1">Version</th>
+      <th class="col-sm-1">Author</th>
+      <th class="col-sm-2">Created</th>
+      <th class="col-sm-6">Content</th>
+      <th class="col-sm-2"></th>
     </tr>
   </thead>
   <tbody>
@@ -22,8 +22,12 @@
       <td>{{ version.author | safe }}</td>
       <td>{{ version.created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
       <td>{{ version.content | striptags | truncate(75)}}</td>
-      <td><a class="btn btn-default" href="/{{ version.name }}?v={{ version.version }}">View</a></td>
-      <td><a class="btn btn-warning" href="/_edit/{{ version.name }}?v={{ version.version }}">Edit</a></td>
+      <td class="text-right">
+        {% if user %}
+          <a class="btn btn-warning" href="/_edit/{{ version.name }}?v={{ version.version }}">Edit</a>
+        {% endif %}
+        <a class="btn btn-default" href="/{{ version.name }}?v={{ version.version }}">View</a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
