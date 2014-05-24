@@ -20,14 +20,37 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-__author__ = 'Vincent Celis'
+import logging
 
-from registrations import SignupPage
-from registrations import LoginPage
-from registrations import LogoutPage
-from wiki import EditPage
-from wiki import HistoryPage
-from wiki import WikiPage
-from wiki import SearchPage
-from api import PageApi
-from api import HistoryApi
+import utils
+import settings
+
+from base import BaseHandler
+from models import Page
+
+class PageApi(BaseHandler):
+  def get(self, name):
+    name = utils.checkPage(name)
+    version = self.checkVersionRequest()
+
+    page = Page.getName(name, version)
+
+    if page:
+      self.renderJson(page.to_dict(exclude=['created']))
+    else:
+      self.abort(404)
+
+class HistoryApi(BaseHandler):
+  def get(self, name):
+    name = utils.checkPage(name)
+
+    pages = Page.getNameAll(name)
+    result = []
+
+    for page in pages:
+      result.append(page.to_dict(exclude=['created']))
+    
+    if result:
+      self.renderJson(result)
+    else:
+      self.abort(404)

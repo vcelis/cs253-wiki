@@ -48,31 +48,20 @@ class WikiPage(BaseHandler):
     redirected to '/_edit' which will be handled by EditPage.
     """
     name = utils.checkPage(name)
+    version = self.checkVersionRequest()
+    
+    page = Page.getName(name, version)
     last_pages = Page.getLast(10)
-    version = self.request.get('v')
 
-    try:
-      version = None if not version else int(version)
-    except ValueError:
-      logging.error('Invalid version format givven')
-      version = None
-
-    if version:
-      page = Page.query(ancestor=Page.getKey()).filter(Page.name == name)
-      page = page.filter(Page.version == version).fetch()
-      if not page:
+    if page:
+      params = { 'page':  page, 'last_pages': last_pages }
+      self.render(settings.TEMPLATE_FILENAME['wiki'], **params)
+    else:
+      if version:
         self.redirect('/%s' % name)
       else:
-        params = { 'page':  page[0], 'last_pages': last_pages }
-        self.render(settings.TEMPLATE_FILENAME['wiki'], **params)
-    else:
-      page = Page.query(ancestor=Page.getKey()).filter(Page.name == name).order(-Page.version).fetch()
-      if not page:
         self.redirect('/_edit/%s' % name)
-      else:
-        params = { 'page': page[0], 'last_pages': last_pages }
-        self.render(settings.TEMPLATE_FILENAME['wiki'], **params)
-
+      
 class EditPage(BaseHandler):
   """Page handler for the edit page of the individual wiki pages
 

@@ -24,6 +24,7 @@ import logging
 
 import webapp2
 import jinja2
+import json
 
 import settings
 import utils
@@ -52,6 +53,11 @@ class BaseHandler(webapp2.RequestHandler):
     """Overrides super class constructor and sets the user attribute"""
     self.initialize(request, response)
     self.user = self.checkLogin()
+
+  def renderJson(self, response):
+    """Encodes the given response into json and returns it"""
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.out.write(json.dumps(response))
 
   def render(self, template, **params):
     """Renders and writes a jinja2 template with correct headers"""
@@ -97,3 +103,15 @@ class BaseHandler(webapp2.RequestHandler):
     else:
       if not self.user:
         self.redirect(uri_for('signup'))
+
+  def checkVersionRequest(self):
+    """Checks if a version is requested. Returns none if invalid or absent"""
+    version = self.request.get('v')
+
+    try:
+      version = None if not version else int(version)
+    except ValueError:
+      logging.error('Invalid version format given')
+      version = None
+
+    return version

@@ -26,6 +26,7 @@
   <li>Central configuration file for easy customization</li>
   <li>Strong consistent query results</li>
   <li>Recently edited pages widget with template inheritance</li>
+  <li>JSON API for all page versions</li>
 </ul>
 
 <h2>Backend Technologies used</h2>
@@ -38,6 +39,7 @@
   <li><a href="http://webapp-improved.appspot.com/">webapp2 python web framework</a></li>
   <ul>
     <li><a href="http://webapp-improved.appspot.com/api/webapp2_extras/routes.html">webapp2_routes</a></li>
+    <li><a href="http://webapp-improved.appspot.com/api/webapp2_extras/json.html">webapp2_extras JSON</a></li>
   </ul>
 </ul>
 
