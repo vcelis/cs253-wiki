@@ -29,18 +29,36 @@ from base import BaseHandler
 from models import Page
 
 class PageApi(BaseHandler):
+  """API handler for specific wiki page versions
+
+  API handler to handle the requests for the specific wiki page versions.
+  Inherits common functionality from BaseHandler
+  """
   def get(self, name):
+    """Handles the get requests for the page API
+
+    If a version is specified in the url it retreives the corresponding version
+    of the requested page.
+
+    If the requested version or page doesn't exist, a 404 will be served.    
+    """
     name = utils.checkPage(name)
     version = self.checkVersionRequest()
 
     page = Page.getName(name, version)
 
     if page:
-      self.renderJson(page.to_dict(exclude=['created']))
+      self.renderJson(page.to_dict(exclude=['created', 'name']))
     else:
       self.abort(404)
 
 class HistoryApi(BaseHandler):
+  """API handler for the history of wiki pages
+
+  API handler to handle the requests for the history of the wiki pages.
+
+  If the requested page doesn't exist, a 404 will be served.
+  """
   def get(self, name):
     name = utils.checkPage(name)
 
@@ -48,7 +66,7 @@ class HistoryApi(BaseHandler):
     result = []
 
     for page in pages:
-      result.append(page.to_dict(exclude=['created']))
+      result.append(page.to_dict(exclude=['created', 'name']))
     
     if result:
       self.renderJson(result)
