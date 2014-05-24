@@ -26,7 +26,7 @@
   <li>Central configuration file for easy customization</li>
   <li>Strong consistent query results</li>
   <li>Recently edited pages widget with template inheritance</li>
-  <li>JSON API for all page versions</li>
+  <li>JSON API for and individual version or all version of a page</li>
 </ul>
 
 <h2>Backend Technologies used</h2>
@@ -39,7 +39,6 @@
   <li><a href="http://webapp-improved.appspot.com/">webapp2 python web framework</a></li>
   <ul>
     <li><a href="http://webapp-improved.appspot.com/api/webapp2_extras/routes.html">webapp2_routes</a></li>
-    <li><a href="http://webapp-improved.appspot.com/api/webapp2_extras/json.html">webapp2_extras JSON</a></li>
   </ul>
 </ul>
 
@@ -61,9 +60,19 @@
 <h4>Passwords</h4>
 <p>Passwords are hashed by an unique salt combined with the users info with the sha256 algorithm.</p>
 
-<h4>Authentication</h4>
+<h2>Authentication</h2>
 <p>As a form of session authentication a cookie is used with the users uid that matches the id of the users datastore entity. The cookie is of the form UID|HASH where hash is a combination of a common salt and the uid using the hmac algorithm.</p>
 <p>This is a part where the project should improve to increase session security</p>
+
+<h2>JSON API</h2>
+<p>If the requested page does not exist a 404 will be served.</p>
+
+<h4>Version method</h4>
+<p>If no version is present the latest version will be returned.</p>
+<pre>GET /api/&lt;PAGENAME&gt;?v=&lt;VERSION&gt;</pre>
+
+<h4>History method</h4>
+<pre>GET /api/history/&lt;PAGENAME&gt;</pre>
 
 <h2>License</h2>
 <p>The MIT License (MIT)</p>
