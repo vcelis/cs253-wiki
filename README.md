@@ -58,10 +58,16 @@
 
 <h2>Security</h2>
 <h4>Passwords</h4>
-<p>Passwords are hashed by an unique salt combined with the users info with the sha256 algorithm.</p>
+<p>
+Passwords are hashed by an random salt combined with the users info with the sha256 algorithm.<br>
+The actual stored info in the datastore is of form SALT|HASH.
+</p>
 
 <h2>Authentication</h2>
-<p>As a form of session authentication a cookie is used with the users uid that matches the id of the users datastore entity. The cookie is of the form UID|HASH where hash is a combination of a common salt and the uid using the hmac algorithm.</p>
+<p>
+  As a form of session authentication a cookie is used with the users uid that matches the id of the users datastore entity.<br>
+  The cookie is of the form UID|HASH where hash is a combination of a common salt and the uid using the hmac algorithm.
+</p>
 <p>This is a part where the project should improve to increase session security</p>
 
 <h2>JSON API</h2>
