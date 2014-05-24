@@ -76,8 +76,8 @@ class Page(ndb.Model):
     query = Page.query(ancestor=Page.getKey())
     query = query.order(-Page.created)
     
-    for r in query.fetch(i):
-      if r.name not in tmp:
+    for r in query.fetch():
+      if r.name not in tmp and len(result) < i:
         result.append(r)
         tmp.append(r.name)
 
