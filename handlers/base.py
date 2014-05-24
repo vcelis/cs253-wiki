@@ -57,7 +57,7 @@ class BaseHandler(webapp2.RequestHandler):
   def renderJson(self, response):
     """Encodes the given response into json and returns it"""
     self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(json.dumps(response))
+    self.response.out.write(json.dumps(response, default=utils.dateConvertor))
 
   def render(self, template, **params):
     """Renders and writes a jinja2 template with correct headers"""

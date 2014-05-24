@@ -48,7 +48,7 @@ class PageApi(BaseHandler):
     page = Page.getName(name, version)
 
     if page:
-      self.renderJson(page.to_dict(exclude=['created', 'name']))
+      self.renderJson(page.to_dict(exclude=['name']))
     else:
       self.abort(404)
 
@@ -66,7 +66,7 @@ class HistoryApi(BaseHandler):
     result = []
 
     for page in pages:
-      result.append(page.to_dict(exclude=['created', 'name']))
+      result.append(page.to_dict(exclude=['name']))
     
     if result:
       self.renderJson(result)

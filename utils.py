@@ -25,6 +25,7 @@ import re
 import random
 import hashlib
 import hmac
+import datetime
 
 import utils
 import settings
@@ -201,3 +202,7 @@ def searchQuery(query):
     logging.error('Error while searching the index:')
     logging.error(e)
   return r
+
+def dateConvertor(obj):
+  """Returns the formatted value if the object is a datetime instance"""
+  return obj.strftime('%Y-%m-%d %H:%M:%S') if type(obj) is datetime.datetime else obj
