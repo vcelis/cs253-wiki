@@ -26,7 +26,7 @@
   <li>Central configuration file for easy customization</li>
   <li>Strong consistent query results</li>
   <li>Recently edited pages widget with template inheritance</li>
-  <li>JSON API for and individual version or all version of a page</li>
+  <li>JSON API for an individual version or all versions of a page</li>
 </ul>
 
 <h2>Backend Technologies used</h2>
