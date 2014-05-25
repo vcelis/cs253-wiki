@@ -21,14 +21,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-__author__ = 'Vincent Celis'
+def webapp_add_wsgi_middleware(app):
+  """WSGI middleware declartion"""
+  from google.appengine.ext.appstats import recording
+  app = recording.appstats_wsgi_middleware(app)
+  return app
 
-from registrations import SignupPage
-from registrations import LoginPage
-from registrations import LogoutPage
-from wiki import EditPage
-from wiki import HistoryPage
-from wiki import WikiPage
-from wiki import SearchPage
-from api import PageApi
-from api import HistoryApi
+# Appstats configuration
+# See google/appengine/ext/appstats/sample_appengine_config.py in the SDK
+appstats_DEBUG = False
+appstats_DUMP_LEVEL = -1
+appstats_stats_url = '/_ah/stats'
+appstats_CALC_RPC_COSTS = True
