@@ -31,7 +31,7 @@
 
 <h2>Backend Technologies used</h2>
 <ul>
-  <li><a href="https://www.python.org/">Python 2.7</a</li>
+  <li><a href="https://www.python.org/">Python 2.7</a></li>
   <li><a href="https://developers.google.com/appengine/docs/python/ndb/">Google NDB datastore API</a></li>
   <li><a href="https://developers.google.com/appengine/docs/python/search/">Google full text search API</a></li>
   <li><a href="https://developers.google.com/appengine/docs/python/memcache/">Google memcache API</a></li>
